@@ -43,11 +43,11 @@ for group = 2:7
             
             %determine the tracker of each observed target
             for m = 1:M
-                tag = tIndex(:,m);%È¡Ä¿±ê¶ÔÓ¦µÄÄÇÒ»ÁĞ
-                [minD,minIndex] = min(tag);%ÓĞ¿ÉÄÜ¶à¸ö×îĞ¡
+                tag = tIndex(:,m);%å–ç›®æ ‡å¯¹åº”çš„é‚£ä¸€åˆ—
+                [minD,minIndex] = min(tag);%æœ‰å¯èƒ½å¤šä¸ªæœ€å°
                 if minD<100000
-                    cntn(minIndex) = cntn(minIndex) +1;%¸ÃÄ¿±ê±»¶ÔÓ¦µÄÎŞÈË»útag
-                    uIndex(minIndex,m) = minD;%¼ÇÂ¼ÏÂÄ¿±êµÄ¹éÊô
+                    cntn(minIndex) = cntn(minIndex) +1;%è¯¥ç›®æ ‡è¢«å¯¹åº”çš„æ— äººæœºtag
+                    uIndex(minIndex,m) = minD;%è®°å½•ä¸‹ç›®æ ‡çš„å½’å±
                 end
             end
             
@@ -59,7 +59,7 @@ for group = 2:7
                     ux1 = uav(1,n1);
                     uy1 = uav(2,n1);
                     d = countDistance(ux,uy,ux1,uy1);
-                    distanceOfUAV(n,n1) = d;%ÔÚ¶ÔÓ¦µÄ¾ØÕóÖĞ¼ÇÂ¼
+                    distanceOfUAV(n,n1) = d;%åœ¨å¯¹åº”çš„çŸ©é˜µä¸­è®°å½•
                 end
             end
             
@@ -116,20 +116,20 @@ for group = 2:7
             for n = 1:N
                 gWeight = flag(n,2)/(M/N*flag(n,3));
                 if cntn(n) >= ratio
-                    fWeight(n) = 1+gWeight;
-                    eWeight(n) = 1-gWeight;
+                    fWeight(n) = 1*gWeight;
+                    eWeight(n) = 0;
                 elseif cntn(n)>=0.75*ratio
-                    fWeight(n) = 0.75+gWeight;
-                    eWeight(n) = 0.25+(1-gWeight);
+                    fWeight(n) = 0.75*gWeight;
+                    eWeight(n) = 0.25*(1-gWeight);
                 elseif cntn(n)>=0.5*ratio
-                    fWeight(n) = 0.5+gWeight;
-                    eWeight(n) = 0.5+(1-gWeight);
+                    fWeight(n) = 0.5*gWeight;
+                    eWeight(n) = 0.5*(1-gWeight);
                 elseif cntn(n)>=0.25*ratio
-                    fWeight(n) = 0.25+gWeight;
-                    eWeight(n) = 0.75+(1-gWeight);
+                    fWeight(n) = 0.25*gWeight;
+                    eWeight(n) = 0.75*(1-gWeight);
                 else
-                    fWeight(n) = gWeight;
-                    eWeight(n) = 1+(1-gWeight);
+                    fWeight(n) = 0;
+                    eWeight(n) = 1*(1-gWeight);
                 end
             end
             updateTimeStamp(time);%upadte the timestamp of each cell
